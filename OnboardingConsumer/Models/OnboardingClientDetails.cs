@@ -27,6 +27,8 @@ namespace OnboardingConsumer.Models
             [Required]
             public string EmailAddress { get; set; }
             [Required]
+            public string EmailType { get; set; }
+            [Required]
             public DateTime BirthDate { get; set; }
 
             //Additional Personal Details
@@ -58,14 +60,14 @@ namespace OnboardingConsumer.Models
             public List<OnboardingCitizenship> AdditionalCitizenship { get; set; }
 
             //External Provider Info
+            [Required]
             public string ExternalCustomerId { get; set; }
+            [Required]
             public string ExternalPlanId { get; set; }
 
             [Required]
             public int PlanType { get; set; }
 
-            //External Promotion Code
-            public int? PromotionCode { get; set; }
         }
 
         public class OnboardingAddress
@@ -109,7 +111,7 @@ namespace OnboardingConsumer.Models
             [Required]
             public int DialingCode { get; set; }
             [Required]
-            public string TelephoneType { get; set; }
+            public int TelephoneType { get; set; }
         }
 
         public class OnboardingBankAccount
@@ -124,7 +126,7 @@ namespace OnboardingConsumer.Models
 
         public class OnboardingCitizenship
         {
-            public int? CountryOfResidency { get; set; }
+            public int CountryOfResidency { get; set; }
             public string TaxIdentificationNumber { get; set; }
         }
 

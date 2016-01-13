@@ -39,7 +39,7 @@ namespace OnboardingConsumer.Models
         public List<ClientCitizenship> Citizenships { get; set; }
 
         //AML
-        public ClientAML AML { get; set; }
+        public ClientAml AML { get; set; }
 
         //Plan
         public List<ClientPlan> Plans { get; set; }
@@ -55,23 +55,6 @@ namespace OnboardingConsumer.Models
         public int PlanTypeId { get; set; }
         public string PlanName { get; set; }
         public string ExternalPlanId { get; set; }
-        public string Promotion { get; set; }
-        public List<ClientCashTransaction> CashTransactions { get; set; }
-        public List<ClientSecurityTransaction> SecurityTransactions { get; set; }
-    }
-
-    public class ClientCashTransaction
-    {
-        public string TransactionDescription { get; set; }
-        public double? TransactionAmount { get; set; }
-        public DateTime? TransactionDate { get; set; }
-    }
-
-    public class ClientSecurityTransaction
-    {
-        public string TransactionDescription { get; set; }
-        public double? TransactionAmount { get; set; }
-        public DateTime? TransactionDate { get; set; }
     }
 
     public class TelephoneNumber
@@ -120,7 +103,7 @@ namespace OnboardingConsumer.Models
         public string SortCode { get; set; }
     }
 
-    public class ClientAML
+    public class ClientAml
     {
         public string AMLStatus { get; set; }
         public DateTime? AMLDate { get; set; }

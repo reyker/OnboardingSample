@@ -21,8 +21,9 @@ namespace OnboardingConsumer.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            ClientDetails cd = await PostOnboardingClientDetails();
-            return View(cd);
+            //ClientDetails cd = await PostOnboardingClientDetails();
+            var cd = await GetAllClientsDetails();
+            return View(cd[0]);
         }
 
         public async Task<ClientDetails> PostOnboardingClientDetails()
@@ -34,22 +35,23 @@ namespace OnboardingConsumer.Controllers
                 Forenames = "John",
                 Surname = "Doe",
                 CountryOfBirth = 1,
-                EmailAddress = "john.doe@reyker.com",
+                EmailAddress = "john.doe1989@reyker.com",
+                EmailType = "WORK",
                 BirthDate = DateTime.Now.AddYears(-30),
                 PrimaryAddress = new OnboardingPrimaryAddress() { Address1 = "Street 1", City = "London", Postcode = "E15JP", Country = 1},
-                PrimaryTelephone = new OnboardingTelephoneNumber() { DialingCode = 1, Number = "0770345657", TelephoneType = "Mobile"},
+                PrimaryTelephone = new OnboardingTelephoneNumber() { DialingCode = 1, Number = "0770345657", TelephoneType = 1},
                 BankAccount = new OnboardingBankAccount() { AccountName = "John Doe Account", AccountNumber = "123456789", SortCode = "12-34-56"},
                 PrimaryCitizenship = new OnboardingCitizenship() { CountryOfResidency = 1, TaxIdentificationNumber = "AZ34654Z"},
-                PlanType = 1,
-                ExternalCustomerId = "209",
-                ExternalPlanId = "1"
+                PlanType = 10,
+                ExternalCustomerId = "22",
+                ExternalPlanId = "10"
             };
             
 
 
             using (new HttpClient())
             {
-                HttpWebRequest request = WebRequest.CreateHttp("http://reykeronboarding.azurewebsites.net/api/EncryptedValues");
+                HttpWebRequest request = WebRequest.CreateHttp("http://localhost:54742/api/Onboarding");
                 request.ContentType = "text/json";
                 request.Method = "POST";
 
@@ -76,6 +78,80 @@ namespace OnboardingConsumer.Controllers
                             model = await objText.AES_Decrypt<ClientDetails>();
                         }
                     }
+                }
+            }
+            return model;
+        }
+
+        public async Task<ClientDetails> GetClientDetails()
+        {
+            var model = new ClientDetails();
+
+            using (new HttpClient())
+            {
+                var request = WebRequest.CreateHttp("http://localhost:54742/api/Onboarding/47417");
+                request.ContentType = "text/json";
+                request.Method = "GET";
+
+                var authHeader = "Reyker Crowdstacker";
+                request.Headers.Add("Authorization", authHeader);
+
+                try
+                {
+
+                    using (var response = request.GetResponse() as HttpWebResponse)
+                    {
+                        var x = 1;
+                        if (response != null && response.StatusCode == HttpStatusCode.OK)
+                        {
+                            using (var reader = new StreamReader(response.GetResponseStream()))
+                            {
+                                var objText = await reader.ReadToEndAsync();
+                                model = await objText.AES_Decrypt<ClientDetails>();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    var error = ex.Message;
+                }
+            }
+            return model;
+        }
+
+        public async Task<List<ClientDetails>> GetAllClientsDetails()
+        {
+            var model = new List<ClientDetails>();
+
+            using (new HttpClient())
+            {
+                var request = WebRequest.CreateHttp("http://localhost:54742/api/Onboarding");
+                request.ContentType = "text/json";
+                request.Method = "GET";
+
+                var authHeader = "Reyker Crowdstacker";
+                request.Headers.Add("Authorization", authHeader);
+
+                try
+                {
+
+                    using (var response = request.GetResponse() as HttpWebResponse)
+                    {
+                        var x = 1;
+                        if (response != null && response.StatusCode == HttpStatusCode.OK)
+                        {
+                            using (var reader = new StreamReader(response.GetResponseStream()))
+                            {
+                                var objText = await reader.ReadToEndAsync();
+                                model = await objText.AES_Decrypt<List<ClientDetails>>();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    var error = ex.Message;
                 }
             }
             return model;
