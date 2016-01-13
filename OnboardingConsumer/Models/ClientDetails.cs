@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace OnboardingConsumer.Models
 {
@@ -92,7 +90,6 @@ namespace OnboardingConsumer.Models
     public class ClientCitizenship
     {
         public string CountryOfResidency { get; set; }
-        public int CountryOfResidencyId { get; set; }
         public string TaxIdentificationNumber { get; set; }
     }
 

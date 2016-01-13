@@ -21,7 +21,6 @@ namespace OnboardingConsumer.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            //ClientDetails cd = await PostOnboardingClientDetails();
             var cd = await GetAllClientsDetails();
             return View(cd[0]);
         }
