@@ -50,7 +50,7 @@ namespace OnboardingConsumer.Models
     {
         public string Provider { get; set; }
         public string PlanType { get; set; }
-        public int PlanTypeId { get; set; }
+        public int? PlanTypeId { get; set; }
         public string PlanName { get; set; }
         public string ExternalPlanId { get; set; }
     }

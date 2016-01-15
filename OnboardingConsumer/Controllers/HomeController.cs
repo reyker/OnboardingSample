@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using Newtonsoft.Json;
 using OnboardingConsumer.Models;
 using OnboardingConsumer.Models.ReykerOnboarding.Models;
 using OnboardingConsumer.Utilities;
@@ -21,8 +17,9 @@ namespace OnboardingConsumer.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            var cd = await GetAllClientsDetails();
-            return View(cd[0]);
+            var cd = await PostOnboardingClientDetails();
+
+            return View();
         }
 
         public async Task<ClientDetails> PostOnboardingClientDetails()
@@ -42,42 +39,40 @@ namespace OnboardingConsumer.Controllers
                 BankAccount = new OnboardingBankAccount() { AccountName = "John Doe Account", AccountNumber = "123456789", SortCode = "12-34-56"},
                 PrimaryCitizenship = new OnboardingCitizenship() { CountryOfResidency = 1, TaxIdentificationNumber = "AZ34654Z"},
                 PlanType = 10,
-                ExternalCustomerId = "22",
+                ExternalCustomerId = "62259",
                 ExternalPlanId = "10"
             };
             
-
-
             using (new HttpClient())
             {
-                HttpWebRequest request = WebRequest.CreateHttp("http://localhost:54742/api/Onboarding");
-                request.ContentType = "text/json";
-                request.Method = "POST";
+                    var request = WebRequest.CreateHttp("http://reykeronboardingdata.azurewebsites.net/api/Onboarding/");
+                    request.ContentType = "text/json";
+                    request.Method = "POST";
 
-                //NEED TO CHANGE USERNAME TO PROVIDED USERNAME
-                var authHeader = "Reyker USERNAME";
-                request.Headers.Add("Authorization", authHeader);
+                    //NEED TO CHANGE USERNAME TO PROVIDED USERNAME
+                    var authHeader = "Reyker Crowdstacker";
+                    request.Headers.Add("Authorization", authHeader);
 
-                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-                {
-                    string encryptedSubmissionData = await submittionData.AES_Encrypt();
-                    string json = new JavaScriptSerializer().Serialize(encryptedSubmissionData);
-                    streamWriter.Write(json);
-                    streamWriter.Flush();
-                    streamWriter.Close();
-                }
-
-                using (var response = request.GetResponse() as HttpWebResponse)
-                {
-                    if (response != null && response.StatusCode == HttpStatusCode.OK)
+                    using (var streamWriter = new StreamWriter(request.GetRequestStream()))
                     {
-                        using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                        var encryptedSubmissionData = await submittionData.AES_Encrypt();
+                        var json = new JavaScriptSerializer().Serialize(encryptedSubmissionData);
+                        streamWriter.Write(json);
+                        streamWriter.Flush();
+                        streamWriter.Close();
+                    }
+
+                    using (var response = request.GetResponse() as HttpWebResponse)
+                    {
+                        if (response != null && response.StatusCode == HttpStatusCode.OK)
                         {
-                            string objText = reader.ReadToEnd();
-                            model = await objText.AES_Decrypt<ClientDetails>();
+                            using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                            {
+                                var objText = reader.ReadToEnd();
+                                model = await objText.AES_Decrypt<ClientDetails>();
+                            }
                         }
                     }
-                }
             }
             return model;
         }
@@ -88,7 +83,7 @@ namespace OnboardingConsumer.Controllers
 
             using (new HttpClient())
             {
-                var request = WebRequest.CreateHttp("http://localhost:54742/api/Onboarding/47417");
+                var request = WebRequest.CreateHttp("http://localhost:54742/api/ClientDetails/47417");
                 request.ContentType = "text/json";
                 request.Method = "GET";
 
@@ -125,7 +120,7 @@ namespace OnboardingConsumer.Controllers
 
             using (new HttpClient())
             {
-                var request = WebRequest.CreateHttp("http://localhost:54742/api/Onboarding");
+                var request = WebRequest.CreateHttp("http://reykeronboardingdata.azurewebsites.net/api/ClientDetails/");
                 request.ContentType = "text/json";
                 request.Method = "GET";
 
