@@ -50,7 +50,7 @@ namespace OnboardingConsumer.Controllers
                     request.Method = "POST";
 
                     //NEED TO CHANGE USERNAME TO PROVIDED USERNAME
-                    var authHeader = "Reyker Crowdstacker";
+                    var authHeader = "Reyker USERNAME";
                     request.Headers.Add("Authorization", authHeader);
 
                     using (var streamWriter = new StreamWriter(request.GetRequestStream()))
