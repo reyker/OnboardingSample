@@ -17,7 +17,11 @@ namespace OnboardingConsumer.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            var cd = await PostOnboardingClientDetails();
+           // var model = PostOnboardingClientDetails();
+
+            //var model = GetClientDetails
+
+            var model = GetAllClientsDetails();
 
             return View();
         }
@@ -39,8 +43,8 @@ namespace OnboardingConsumer.Controllers
                 BankAccount = new OnboardingBankAccount() { AccountName = "John Doe Account", AccountNumber = "123456789", SortCode = "12-34-56"},
                 PrimaryCitizenship = new OnboardingCitizenship() { CountryOfResidency = 1, TaxIdentificationNumber = "AZ34654Z"},
                 PlanType = 10,
-                ExternalCustomerId = "62259",
-                ExternalPlanId = "10"
+                ExternalCustomerId = "002",
+                ExternalPlanId = "1000"
             };
             
             using (new HttpClient())
@@ -50,7 +54,7 @@ namespace OnboardingConsumer.Controllers
                     request.Method = "POST";
 
                     //NEED TO CHANGE USERNAME TO PROVIDED USERNAME
-                    var authHeader = "Reyker USERNAME";
+                    const string authHeader = "Reyker USERNAME";
                     request.Headers.Add("Authorization", authHeader);
 
                     using (var streamWriter = new StreamWriter(request.GetRequestStream()))
@@ -64,6 +68,7 @@ namespace OnboardingConsumer.Controllers
 
                     using (var response = request.GetResponse() as HttpWebResponse)
                     {
+                        var x = response;
                         if (response != null && response.StatusCode == HttpStatusCode.OK)
                         {
                             using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
@@ -83,11 +88,11 @@ namespace OnboardingConsumer.Controllers
 
             using (new HttpClient())
             {
-                var request = WebRequest.CreateHttp("http://localhost:54742/api/ClientDetails/47417");
+                var request = WebRequest.CreateHttp("http://reykeronboardingdata.azurewebsites.net/api/ClientDetails/47531");
                 request.ContentType = "text/json";
                 request.Method = "GET";
 
-                var authHeader = "Reyker Crowdstacker";
+                var authHeader = "Reyker USERNAME";
                 request.Headers.Add("Authorization", authHeader);
 
                 try
@@ -108,7 +113,7 @@ namespace OnboardingConsumer.Controllers
                 }
                 catch (Exception ex)
                 {
-                    var error = ex.Message;
+                    model.ErrorMessage = ex.Message;
                 }
             }
             return model;
@@ -120,11 +125,11 @@ namespace OnboardingConsumer.Controllers
 
             using (new HttpClient())
             {
-                var request = WebRequest.CreateHttp("http://reykeronboardingdata.azurewebsites.net/api/ClientDetails/");
+                var request = WebRequest.CreateHttp("http://reykeronboardingdata.azurewebsites.net/api/BulkClientDetails/");
                 request.ContentType = "text/json";
                 request.Method = "GET";
 
-                var authHeader = "Reyker Crowdstacker";
+                var authHeader = "Reyker USERNAME";
                 request.Headers.Add("Authorization", authHeader);
 
                 try

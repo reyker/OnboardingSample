@@ -10,6 +10,8 @@ namespace OnboardingConsumer.Utilities
 {
     public class Encryption
     {
+
+        //REPLACE WITH YOUR INFORMATION
         private readonly string aesKey = "lr1Jwa9IO6l6iF5EccZ8S5fAkFMwkkkfHKyzRLntrJQ=";
         private readonly byte[] salt = System.Text.Encoding.UTF8.GetBytes("ReykerExample");
 

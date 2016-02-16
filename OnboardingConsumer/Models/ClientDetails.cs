@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace OnboardingConsumer.Models
 {
+    [Serializable]
     public class ClientDetails
     {
         //Identification
