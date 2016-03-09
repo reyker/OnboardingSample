@@ -36,11 +36,11 @@ namespace OnboardingConsumer.Utilities
             {
                 using (RijndaelManaged AES = new RijndaelManaged())
                 {
-                    AES.KeySize = 256;
+                    AES.KeySize = 128;
 
                     AES.BlockSize = 128;
 
-                    AES.Padding = PaddingMode.ISO10126;
+                    AES.Padding = PaddingMode.PKCS7;
 
                     var key = new Rfc2898DeriveBytes(keyPassword, saltBytes, 1000);
 
@@ -88,9 +88,9 @@ namespace OnboardingConsumer.Utilities
             string retJson;
             using (RijndaelManaged AES = new RijndaelManaged())
             {
-                AES.KeySize = 256;
+                AES.KeySize = 128;
                 AES.BlockSize = 128;
-                AES.Padding = PaddingMode.ISO10126;
+                AES.Padding = PaddingMode.PKCS7;
                 var key = new Rfc2898DeriveBytes(keyPassword, saltBytes, 1000);
                 AES.Key = key.GetBytes(AES.KeySize / 8);
                 AES.IV = Convert.FromBase64String(encryptModel.iv);

@@ -17,11 +17,13 @@ namespace OnboardingConsumer.Controllers
     {
         public async Task<ActionResult> Index()
         {
-           // var model = PostOnboardingClientDetails();
+            var model = PostOnboardingClientDetails();
 
             //var model = GetClientDetails
 
-            var model = GetAllClientsDetails();
+           // var model = GetAllClientsDetails();
+
+
 
             return View();
         }
@@ -43,13 +45,13 @@ namespace OnboardingConsumer.Controllers
                 BankAccount = new OnboardingBankAccount() { AccountName = "John Doe Account", AccountNumber = "123456789", SortCode = "12-34-56"},
                 PrimaryCitizenship = new OnboardingCitizenship() { CountryOfResidency = 1, TaxIdentificationNumber = "AZ34654Z"},
                 PlanType = 10,
-                ExternalCustomerId = "002",
-                ExternalPlanId = "1000"
+                ExternalCustomerId = "Test",
+                ExternalPlanId = "Test"
             };
             
             using (new HttpClient())
             {
-                    var request = WebRequest.CreateHttp("http://reykeronboardingdata.azurewebsites.net/api/Onboarding/");
+                    var request = WebRequest.CreateHttp("https://reykeronboardingdata.azurewebsites.net/api/Onboarding/");
                     request.ContentType = "text/json";
                     request.Method = "POST";
 
