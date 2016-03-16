@@ -1,0 +1,119 @@
+﻿<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/pbkdf2.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/pad-iso10126.js"></script>
+
+<script type="text/javascript">
+
+    function EncryptData(Data) {
+
+        try {
+            //Creating the Vector Key
+            var iv = CryptoJS.lib.WordArray.random(128 / 8);
+            //Encoding the Password in from UTF8 to byte array
+            var Pass = 'lr1Jwa9IO6l6iF5EccZ8S5fAkFMwkkkfHKyzRLntrJQ=';
+            //Encoding the Salt in from UTF8 to byte array
+            var Salt = CryptoJS.enc.Utf8.parse("ReykerExample");
+            //Creating the key in PBKDF2 format to be used during the decryption
+            var key256Bits1000Iterations = CryptoJS.PBKDF2(Pass, Salt, { keySize: 128 / 32, iterations: 1000 });
+            //Decrypting the string contained in cipherParams using the PBKDF2 key
+            var encrypted = CryptoJS.AES.encrypt(Data, key256Bits1000Iterations,
+                {
+                    mode: CryptoJS.mode.CBC,
+                    iv: iv,
+                    padding: CryptoJS.pad.Pkcs7
+                }
+            );
+
+            var x = encrypted.iv.toString(CryptoJS.enc.Base64);
+            var y = encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+
+
+            var retData = {
+                iv: encrypted.iv.toString(CryptoJS.enc.Base64),
+                ct: encrypted.ciphertext.toString(CryptoJS.enc.Base64)
+            }
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("EncryptMessage","Home")',
+                data: JSON.stringify(retData),
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    var x = DecryptData(result);
+                    debugger;
+                },
+                error: function (xhr) {
+                    alert('Error: ' + xhr.statusText);
+                },
+                async: true,
+                processData: false
+            });
+
+
+            return JSON.stringify(retData);
+        }
+        //Malformed UTF Data due to incorrect password
+        catch (err) {
+            return "";
+        }
+    }
+
+    function DecryptData(encryptedData) {
+        var decryptedText = null;
+        try {
+            //Deserialize the Json String to get the IV and CypherText
+            var splitData = JSON.parse(encryptedData);
+            var IVString = decodeURIComponent(splitData.iv);
+            encryptedData = decodeURIComponent(splitData.ct);
+            //Convert the IV from Text to bytes
+            var IV = CryptoJS.enc.Base64.parse(IVString);
+            //Encoding the Password in from UTF8 to byte array
+            var Pass = 'lr1Jwa9IO6l6iF5EccZ8S5fAkFMwkkkfHKyzRLntrJQ=';
+            //Encoding the Salt in from UTF8 to byte array
+            var Salt = CryptoJS.enc.Utf8.parse("ReykerExample");
+            //Creating the key in PBKDF2 format to be used during the decryption
+            var key256Bits1000Iterations = CryptoJS.PBKDF2(Pass, Salt, { keySize: 128 / 32, iterations: 1000 });
+            //Enclosing the test to be decrypted in a CipherParams object as supported by the CryptoJS libarary
+            var ciphertextcipherParams = CryptoJS.lib.CipherParams.create({
+                ciphertext: CryptoJS.enc.Base64.parse(encryptedData)
+            });
+            //Decrypting the string contained in cipherParams using the PBKDF2 key
+            var decrypted = CryptoJS.AES.decrypt(ciphertextcipherParams, key256Bits1000Iterations,
+                {
+                    mode: CryptoJS.mode.CBC,
+                    iv: IV,
+                    padding: CryptoJS.pad.Pkcs7
+                }
+            );
+            //Convert the decrypted byts to string in the UTF8 format
+            decryptedText = decrypted.toString(CryptoJS.enc.Utf8);
+            //Return the decrypted text which should be a JSON string of the object that has been recieved
+            return decryptedText;
+        }
+        //Malformed UTF Data due to incorrect password
+        catch (err) {
+            return err;
+        }
+    }
+
+    function TestEncryption() {
+        var data = '{"Title":"Mr","Forenames":"John","Surname":"Doe","CountryOfBirth":1,"EmailAddress":"john.doe1989@reyker.com","EmailType":"WORK","BirthDate":"2016-03-08T03:18:37+0100","Suffix":null,"NationalInsuranceNumber":null,"PrimaryAddress":{"Address1":"Street 1","Address2":null,"City":"London","County":null,"Postcode":"E15JP","Country":1,"AddressType":null},"AdditionalAddresses":[],"PrimaryTelephone":{"Number":"0770345657","DialingCode":1,"TelephoneType":1},"AdditionalTelephone":[],"BankAccount":{"AccountName":"John Doe Account","AccountNumber":"123456789","SortCode":"12-34-56"},"PrimaryCitizenship":{"CountryOfResidency":1,"TaxIdentificationNumber":"AZ34654Z"},"AdditionalCitizenship":[],"ExternalCustomerId":"002","ExternalPlanId":"1000","PlanType":10}';
+
+        var encrypted = EncryptData(data);
+        console.log("JS Encrypted: " + encrypted);
+        var decrypted = DecryptData(encrypted);
+        console.log("JS Decrypted: " + decrypted);
+        console.log("JS Verified: " + (decrypted === data));
+    }
+
+</script>
+
+
+<fieldset>
+    <div class="container">
+        <input type="button" id="myCheck" onclick="TestEncryption()" value="Send">
+    </div>
+</fieldset>
+
+
