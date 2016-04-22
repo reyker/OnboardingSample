@@ -17,13 +17,13 @@ namespace OnboardingConsumer.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            var model = PostOnboardingClientDetails();
+            //var model = PostOnboardingClientDetails();
 
             //var model = GetClientDetails
 
-           // var model = GetAllClientsDetails();
+            //var model = GetAllClientsDetails();
 
-
+            //var model = AddAdditionalPlan();
 
             return View();
         }
@@ -31,7 +31,7 @@ namespace OnboardingConsumer.Controllers
         public async Task<ClientDetails> PostOnboardingClientDetails()
         {
             var model = new ClientDetails();
-            var submittionData = new OnboardingClientDetails()
+            var submitionData = new OnboardingClientDetails()
             {
                 Title = "Mr",
                 Forenames = "John",
@@ -45,13 +45,13 @@ namespace OnboardingConsumer.Controllers
                 BankAccount = new OnboardingBankAccount() { AccountName = "John Doe Account", AccountNumber = "123456789", SortCode = "12-34-56"},
                 PrimaryCitizenship = new OnboardingCitizenship() { CountryOfResidency = 1, TaxIdentificationNumber = "AZ34654Z"},
                 PlanType = 10,
-                ExternalCustomerId = "Test",
-                ExternalPlanId = "Test"
+                ExternalCustomerId = "ExternalCustomerId",
+                ExternalPlanId = "ExternalPlanId"
             };
             
             using (new HttpClient())
             {
-                    var request = WebRequest.CreateHttp("https://reykeronboardingdata.azurewebsites.net/api/Onboarding/");
+                    var request = WebRequest.CreateHttp("https://reykeronboardingexternaltest.azurewebsites.net/api/Onboarding/");
                     request.ContentType = "text/json";
                     request.Method = "POST";
 
@@ -61,7 +61,7 @@ namespace OnboardingConsumer.Controllers
 
                     using (var streamWriter = new StreamWriter(request.GetRequestStream()))
                     {
-                        var encryptedSubmissionData = await submittionData.AES_Encrypt();
+                        var encryptedSubmissionData = await submitionData.AES_Encrypt();
                         var json = new JavaScriptSerializer().Serialize(encryptedSubmissionData);
                         streamWriter.Write(json);
                         streamWriter.Flush();
@@ -84,13 +84,59 @@ namespace OnboardingConsumer.Controllers
             return model;
         }
 
+        public async Task<ClientDetails> AddAdditionalPlan()
+        {
+            var model = new ClientDetails();
+
+            var submitionData = new OnboardingPlanDetails()
+            {
+                 ExternalCustomerId = "ExternalCustomerId",
+                 ExternalPlanId = "ExternalPlanId",
+                 PlanType = 10
+            };
+
+            using (new HttpClient())
+            {
+                var request = WebRequest.CreateHttp("https://reykeronboardingexternaltest.azurewebsites.net/api/AdditionalPlan/");
+                request.ContentType = "text/json";
+                request.Method = "POST";
+
+                //NEED TO CHANGE USERNAME TO PROVIDED USERNAME
+                const string authHeader = "Reyker USERNAME";
+                request.Headers.Add("Authorization", authHeader);
+
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    var encryptedSubmissionData = await submitionData.AES_Encrypt();
+                    var json = new JavaScriptSerializer().Serialize(encryptedSubmissionData);
+                    streamWriter.Write(json);
+                    streamWriter.Flush();
+                    streamWriter.Close();
+                }
+
+                using (var response = request.GetResponse() as HttpWebResponse)
+                {
+                    var x = response;
+                    if (response != null && response.StatusCode == HttpStatusCode.OK)
+                    {
+                        using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                        {
+                            var objText = reader.ReadToEnd();
+                            model = await objText.AES_Decrypt<ClientDetails>();
+                        }
+                    }
+                }
+            }
+            return model;
+        }
+
         public async Task<ClientDetails> GetClientDetails()
         {
             var model = new ClientDetails();
 
             using (new HttpClient())
             {
-                var request = WebRequest.CreateHttp("http://reykeronboardingdata.azurewebsites.net/api/ClientDetails/47531");
+                var request = WebRequest.CreateHttp("https://reykeronboardingexternaltest.azurewebsites.net/api/ClientDetails/47531");
                 request.ContentType = "text/json";
                 request.Method = "GET";
 
@@ -127,11 +173,11 @@ namespace OnboardingConsumer.Controllers
 
             using (new HttpClient())
             {
-                var request = WebRequest.CreateHttp("http://reykeronboardingdata.azurewebsites.net/api/BulkClientDetails/");
+                var request = WebRequest.CreateHttp("https://reykeronboardingexternaltest.azurewebsites.net/api/BulkClientDetails/");
                 request.ContentType = "text/json";
                 request.Method = "GET";
 
-                var authHeader = "Reyker USERNAME";
+                var authHeader = "Reyker USERNAMEUSERNAME";
                 request.Headers.Add("Authorization", authHeader);
 
                 try
