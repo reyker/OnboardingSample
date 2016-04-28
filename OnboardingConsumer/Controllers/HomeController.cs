@@ -136,7 +136,7 @@ namespace OnboardingConsumer.Controllers
 
             using (new HttpClient())
             {
-                var request = WebRequest.CreateHttp("https://reykeronboardingexternaltest.azurewebsites.net/api/ClientDetails/47531");
+                var request = WebRequest.CreateHttp("https://reykeronboardingexternaltest.azurewebsites.net/api/ClientDetails/48707");
                 request.ContentType = "text/json";
                 request.Method = "GET";
 
@@ -177,7 +177,7 @@ namespace OnboardingConsumer.Controllers
                 request.ContentType = "text/json";
                 request.Method = "GET";
 
-                var authHeader = "Reyker USERNAMEUSERNAME";
+                var authHeader = "Reyker USERNAME";
                 request.Headers.Add("Authorization", authHeader);
 
                 try

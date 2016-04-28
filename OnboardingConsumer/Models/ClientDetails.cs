@@ -31,7 +31,7 @@ namespace OnboardingConsumer.Models
 
         //Bank account details
 
-        public ClientBankAccount BankAccount { get; set; }
+        public List<ClientBankAccount> BankAccounts { get; set; }
 
         //Citizenship Details
 
