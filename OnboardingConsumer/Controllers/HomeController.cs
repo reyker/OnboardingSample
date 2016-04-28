@@ -19,7 +19,7 @@ namespace OnboardingConsumer.Controllers
         {
             //var model = PostOnboardingClientDetails();
 
-            //var model = GetClientDetails
+            //var model = GetClientDetails();
 
             //var model = GetAllClientsDetails();
 
