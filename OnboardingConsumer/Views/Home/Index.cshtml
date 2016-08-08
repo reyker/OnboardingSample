@@ -1,1 +1,312 @@
-﻿@model OnboardingConsumer.Models.ClientDetails
+﻿@model OnboardingConsumer.Models.OnboardingClientDetails
+
+<h2>Onboarding Submittion</h2>
+
+@using (Html.BeginForm("PostOnboardingClientDetails", "Home", FormMethod.Post))
+{
+    <fieldset>
+        <legend>Personal Details</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Title, new { @Value = "Mr" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Forenames)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Forenames, new { @Value = "John" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Surname)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Surname, new { @Value = "Doe" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CountryOfBirth)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.CountryOfBirth, new { @Value = "1" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EmailAddress)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.EmailAddress, new { @Value = "john.doe@email.com" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EmailType)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.EmailType, new { @Value = "1" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BirthDate)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.BirthDate, new { @class = "datepicker", @Value = DateTime.Today.Date })
+        </div>
+
+        <br>
+        <legend>Additional Personal Details</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Suffix)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Suffix)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NationalInsuranceNumber)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.NationalInsuranceNumber)
+        </div>
+
+
+        <br>
+        <legend>Primary Address</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimaryAddress.Address1)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.PrimaryAddress.Address1, new { @Value = "Flat 1" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimaryAddress.Address2)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.PrimaryAddress.Address2, new { @Value = "Oxford Street" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimaryAddress.City)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.PrimaryAddress.City, new { @Value = "London" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimaryAddress.County)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.PrimaryAddress.County, new { @Value = "London" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimaryAddress.Country)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.PrimaryAddress.Country, new { @Value = "1" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimaryAddress.Postcode)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.PrimaryAddress.Postcode, new { @Value = "L12456" })
+        </div>
+
+        <br>
+        <legend>Additional Address</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AdditionalAddresses[0].Address1)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.AdditionalAddresses[0].Address1)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AdditionalAddresses[0].Address2)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.AdditionalAddresses[0].Address2)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AdditionalAddresses[0].City)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.AdditionalAddresses[0].City)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AdditionalAddresses[0].County)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.AdditionalAddresses[0].County)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AdditionalAddresses[0].Country)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.AdditionalAddresses[0].Country)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AdditionalAddresses[0].Postcode)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.AdditionalAddresses[0].Postcode)
+        </div>
+
+        <br>
+        <legend>Primary Telephone</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimaryTelephone.TelephoneType)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.PrimaryTelephone.TelephoneType, new { @Value = "1" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimaryTelephone.DialingCode)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.PrimaryTelephone.DialingCode, new { @Value = "1" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimaryTelephone.Number)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.PrimaryTelephone.Number, new { @Value = "123456789" })
+        </div>
+
+        <br>
+        <legend>Additional Telephone</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AdditionalTelephone[0].TelephoneType)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.AdditionalTelephone[0].TelephoneType)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AdditionalTelephone[0].DialingCode)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.AdditionalTelephone[0].DialingCode)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AdditionalTelephone[0].Number)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.AdditionalTelephone[0].Number)
+        </div>
+
+        <br>
+        <legend>Bank Account</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BankAccount.AccountName)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.BankAccount.AccountName, new { @Value = "John Doe Account" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BankAccount.AccountNumber)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.BankAccount.AccountNumber, new { @Value = "123456789" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BankAccount.SortCode)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.BankAccount.SortCode, new { @Value = "123456" })
+        </div>
+
+        <br>
+        <legend>Primary Citizenship</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimaryCitizenship.CountryOfResidency)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.PrimaryCitizenship.CountryOfResidency, new { @Value = "1" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimaryCitizenship.TaxIdentificationNumber)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.PrimaryCitizenship.TaxIdentificationNumber, new { @Value = "AB12CD34EF56" })
+        </div>
+
+        <br>
+        <legend>Additional Citizenship</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AdditionalCitizenship[0].CountryOfResidency)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.AdditionalCitizenship[0].CountryOfResidency)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AdditionalCitizenship[0].TaxIdentificationNumber)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.AdditionalCitizenship[0].TaxIdentificationNumber)
+        </div>
+
+        <br>
+        <legend>External Provider Info</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ExternalCustomerId)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.ExternalCustomerId, new { @Value = "0" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ExternalPlanId)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.ExternalPlanId, new { @Value = "0" })
+        </div>
+
+        <br>
+        <legend>External Provider Info</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PlanType)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.PlanType, new { @Value = "1" })
+        </div>
+
+        <br>
+        <div class="editor-field">
+            <input type="submit" class="btn btn-success">
+        </div>
+    </fieldset>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.datepicker').datepicker();
+    });
+
+</script>

@@ -1,0 +1,95 @@
+﻿@model OnboardingConsumer.Models.ClientDetails
+
+
+<h3>@ViewData["ResponseStatusCode"] - @ViewData["ResponseStatusMessage"]</h3>
+
+@if (Model != null)
+{
+    <legend>Identification</legend>
+    <ul>
+        <li>Reyker Id : @Model.ReykerId</li>
+        <li>External Id : @Model.ExternalId</li>
+    </ul>
+
+    <legend>Personal Details</legend>
+    <ul>
+        <li>Title : @Model.Title</li>
+        <li>Forenames : @Model.Forenames</li>
+        <li>Country of Birth : @Model.CountryOfBirth</li>
+        <li>Email Address : @Model.EmailAddress</li>
+        <li>Birth Date : @Model.BirthDate</li>
+        <li>Suffix : @Model.Suffix</li>
+        <li>National Insurance Number : @Model.NationalInsuranceNumber</li>
+    </ul>
+
+    <legend>Telephone Numbers</legend>
+    for (var i = 0; i < Model.TelephoneNumbers.Count; i++)
+    {
+        <ul>
+            <li>Telephone Type Id : @Model.TelephoneNumbers[i].TelephoneTypeId</li>
+            <li>Telephone Type : @Model.TelephoneNumbers[i].TelephoneType</li>
+            <li>Telephone Dialing Code : @Model.TelephoneNumbers[i].DialingCode</li>
+            <li>Telephone Number : @Model.TelephoneNumbers[i].Number</li>
+        </ul>
+    }
+
+    <legend>Addresses</legend>
+    for (var i = 0; i < Model.Addresses.Count; i++)
+    {
+        <ul>
+            <li>Address Type Id : @Model.Addresses[i].AddressTypeId</li>
+            <li>Address Type : @Model.Addresses[i].AddressType</li>
+            <li>Address Line 1 : @Model.Addresses[i].Address1</li>
+            <li>Address Line 2 : @Model.Addresses[i].Address2</li>
+            <li>City : @Model.Addresses[i].City</li>
+            <li>County : @Model.Addresses[i].County</li>
+            <li>Country : @Model.Addresses[i].Country</li>
+            <li>Postcode : @Model.Addresses[i].Postcode</li>
+        </ul>
+    }
+
+    <legend>Bank Accounts</legend>
+    for (var i = 0; i < Model.BankAccounts.Count; i++)
+    {
+        <ul>
+            <li>Account Name : @Model.BankAccounts[i].AccountName</li>
+            <li>Account Number : @Model.BankAccounts[i].AccountNumber</li>
+            <li>Sort Code : @Model.BankAccounts[i].SortCode</li>
+        </ul>
+    }
+
+    <legend>Citizenships</legend>
+    for (var i = 0; i < Model.Citizenships.Count; i++)
+    {
+        <ul>
+            <li>Country of Residency : @Model.Citizenships[i].CountryOfResidency</li>
+            <li>Tax Identification Number : @Model.Citizenships[i].TaxIdentificationNumber</li>
+        </ul>
+    }
+
+    <legend>AML</legend>
+    <ul>
+        <li>Date : @Model.AML.AMLDate</li>
+        <li>Status : @Model.AML.AMLStatus</li>
+        <li>Score : @Model.AML.AMLScore</li>
+    </ul>
+
+
+    <legend>Plans</legend>
+    for (var i = 0; i < Model.Plans.Count; i++)
+    {
+        <ul>
+            <li>Provider : @Model.Plans[i].Provider</li>
+            <li>Plan Type : @Model.Plans[i].PlanType</li>
+            <li>Plan Type Id : @Model.Plans[i].PlanTypeId</li>
+            <li>Plan Name : @Model.Plans[i].PlanName</li>
+            <li>External Plan Id : @Model.Plans[i].ExternalPlanId</li>
+        </ul>
+    }
+
+    <legend>Errors</legend>
+        <ul>
+            <li>Error Message : @Model.ErrorMessage</li>
+        </ul>
+}
+}
