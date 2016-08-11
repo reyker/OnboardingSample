@@ -128,5 +128,4 @@ namespace OnboardingConsumer.Models
         public string LocationFull { get; set; }
         public string IDC { get; set; }
     }
-
 }

@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using OnboardingConsumer.Models;
@@ -12,15 +15,16 @@ using OnboardingConsumer.Utilities;
 
 namespace OnboardingConsumer.Controllers
 {
-    public class HomeController : Controller
+    public class AdditionalPlanController : Controller
     {
+        // GET: AdditionalPlan
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostOnboardingClientDetails(OnboardingClientDetails submitionData)
+        public async Task<ActionResult> PostAdditionalPlanDetails(OnboardingPlanDetails submitionData)
         {
             var model = new ClientDetails();
             using (new HttpClient())
@@ -28,7 +32,7 @@ namespace OnboardingConsumer.Controllers
                 var url = ConfigurationManager.AppSettings["APIUrl"];
 
                 var request =
-                    WebRequest.CreateHttp(url + "api/Onboarding/");
+                    WebRequest.CreateHttp(url + "api/AdditionalPlan/");
                 request.ContentType = "text/json";
                 request.Method = "POST";
 
@@ -104,7 +108,7 @@ namespace OnboardingConsumer.Controllers
                     ViewData["ResponseStatusMessage"] = response.StatusDescription;
                 }
             }
-            return View("OnboardingResult", model);
+            return View("AdditionalPlanResult", model);
         }
     }
 }

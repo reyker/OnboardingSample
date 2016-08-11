@@ -1,0 +1,38 @@
+﻿@model OnboardingConsumer.Models.OnboardingPlanDetails
+
+
+<h2>Additional Plan</h2>
+
+@using (Html.BeginForm("PostAdditionalPlanDetails", "AdditionalPlan", FormMethod.Post))
+{
+    <fieldset>
+        <legend>Plan Details</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ExternalCustomerId)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.ExternalCustomerId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ExternalPlanId)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.ExternalPlanId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PlanType)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.PlanType)
+        </div>
+
+        <br>
+        <div class="editor-field">
+            <input type="submit" class="btn btn-success">
+        </div>
+    </fieldset>
+}
+

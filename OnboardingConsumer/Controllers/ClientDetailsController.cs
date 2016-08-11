@@ -1,49 +1,44 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 using OnboardingConsumer.Models;
 using OnboardingConsumer.Utilities;
 
 namespace OnboardingConsumer.Controllers
 {
-    public class HomeController : Controller
+    public class ClientDetailsController : Controller
     {
+        // GET: ClientDetails
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostOnboardingClientDetails(OnboardingClientDetails submitionData)
+        public async Task<ActionResult> GetClientDetails(ClientDetailsId subitionData)
         {
             var model = new ClientDetails();
+
             using (new HttpClient())
             {
                 var url = ConfigurationManager.AppSettings["APIUrl"];
 
                 var request =
-                    WebRequest.CreateHttp(url + "api/Onboarding/");
+                    WebRequest.CreateHttp(url + "api/ClientDetails/" + subitionData.ReykerClientId);
                 request.ContentType = "text/json";
-                request.Method = "POST";
+                request.Method = "GET";
 
                 //NEED TO CHANGE USERNAME TO PROVIDED USERNAME
                 const string authHeader = "Reyker USERNAME";
                 request.Headers.Add("Authorization", authHeader);
-
-                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-                {
-                    var encryptedSubmissionData = await submitionData.AES_Encrypt();
-                    var json = new JavaScriptSerializer().Serialize(encryptedSubmissionData);
-                    streamWriter.Write(json);
-                    streamWriter.Flush();
-                    streamWriter.Close();
-                }
 
                 try
                 {
@@ -103,8 +98,10 @@ namespace OnboardingConsumer.Controllers
                     ViewData["ResponseStatusCode"] = response.StatusCode;
                     ViewData["ResponseStatusMessage"] = response.StatusDescription;
                 }
+
             }
-            return View("OnboardingResult", model);
+
+            return View("ClientDetailsResult", model);
         }
     }
 }

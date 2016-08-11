@@ -1,6 +1,7 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 namespace OnboardingConsumer.Models
 {
     [Serializable]
@@ -9,16 +10,22 @@ namespace OnboardingConsumer.Models
         //Personal Details
         [Required]
         public string Title { get; set; }
+
         [Required]
         public string Forenames { get; set; }
+
         [Required]
         public string Surname { get; set; }
+
         [Required]
         public int CountryOfBirth { get; set; }
+
         [Required]
         public string EmailAddress { get; set; }
+
         [Required]
         public string EmailType { get; set; }
+
         [Required]
         public DateTime BirthDate { get; set; }
 
@@ -53,12 +60,12 @@ namespace OnboardingConsumer.Models
         //External Provider Info
         [Required]
         public string ExternalCustomerId { get; set; }
+
         [Required]
         public string ExternalPlanId { get; set; }
 
         [Required]
         public int PlanType { get; set; }
-
     }
 
     public class OnboardingAddress
@@ -67,14 +74,18 @@ namespace OnboardingConsumer.Models
         public string Address1 { get; set; }
 
         public string Address2 { get; set; }
+
         [Required]
         public string City { get; set; }
 
         public string County { get; set; }
+
         [Required]
         public string Postcode { get; set; }
+
         [Required]
         public int Country { get; set; }
+
         [Required]
         public int AddressType { get; set; }
     }
@@ -85,12 +96,15 @@ namespace OnboardingConsumer.Models
         public string Address1 { get; set; }
 
         public string Address2 { get; set; }
+
         [Required]
         public string City { get; set; }
 
         public string County { get; set; }
+
         [Required]
         public string Postcode { get; set; }
+
         [Required]
         public int Country { get; set; }
     }
@@ -99,8 +113,10 @@ namespace OnboardingConsumer.Models
     {
         [Required]
         public string Number { get; set; }
+
         [Required]
         public int DialingCode { get; set; }
+
         [Required]
         public int TelephoneType { get; set; }
     }
@@ -109,8 +125,10 @@ namespace OnboardingConsumer.Models
     {
         [Required]
         public string AccountName { get; set; }
+
         [Required]
         public string AccountNumber { get; set; }
+
         [Required]
         public string SortCode { get; set; }
     }
@@ -120,6 +138,4 @@ namespace OnboardingConsumer.Models
         public int CountryOfResidency { get; set; }
         public string TaxIdentificationNumber { get; set; }
     }
-
 }
-

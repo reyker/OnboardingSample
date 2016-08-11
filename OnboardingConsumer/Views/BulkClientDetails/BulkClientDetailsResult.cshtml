@@ -1,0 +1,97 @@
+﻿@model List<OnboardingConsumer.Models.ClientDetails>
+
+
+<h3>Status : @ViewData["ResponseStatusCode"] - @ViewData["ResponseStatusMessage"]</h3>
+
+@if (Model != null)
+{
+    foreach (var clientDetails in Model)
+    {
+        <legend>Identification</legend>
+        <ul>
+            <li>Reyker Id : @clientDetails.ReykerId</li>
+            <li>External Id : @clientDetails.ExternalId</li>
+        </ul>
+
+        <legend>Personal Details</legend>
+        <ul>
+            <li>Title : @clientDetails.Title</li>
+            <li>Forenames : @clientDetails.Forenames</li>
+            <li>Country of Birth : @clientDetails.CountryOfBirth</li>
+            <li>Email Address : @clientDetails.EmailAddress</li>
+            <li>Birth Date : @clientDetails.BirthDate</li>
+            <li>Suffix : @clientDetails.Suffix</li>
+            <li>National Insurance Number : @clientDetails.NationalInsuranceNumber</li>
+        </ul>
+
+        <legend>Telephone Numbers</legend>
+        foreach (var t in clientDetails.TelephoneNumbers)
+        {
+            <ul>
+                <li>Telephone Type Id : @t.TelephoneTypeId</li>
+                <li>Telephone Type : @t.TelephoneType</li>
+                <li>Telephone Dialing Code : @t.DialingCode</li>
+                <li>Telephone Number : @t.Number</li>
+            </ul>
+        }
+
+        <legend>Addresses</legend>
+        foreach (var t in clientDetails.Addresses)
+        {
+            <ul>
+                <li>Address Type Id : @t.AddressTypeId</li>
+                <li>Address Type : @t.AddressType</li>
+                <li>Address Line 1 : @t.Address1</li>
+                <li>Address Line 2 : @t.Address2</li>
+                <li>City : @t.City</li>
+                <li>County : @t.County</li>
+                <li>Country : @t.Country</li>
+                <li>Postcode : @t.Postcode</li>
+            </ul>
+        }
+
+        <legend>Bank Accounts</legend>
+        foreach (var t in clientDetails.BankAccounts)
+        {
+            <ul>
+                <li>Account Name : @t.AccountName</li>
+                <li>Account Number : @t.AccountNumber</li>
+                <li>Sort Code : @t.SortCode</li>
+            </ul>
+        }
+
+        <legend>Citizenships</legend>
+        foreach (var t in clientDetails.Citizenships)
+        {
+            <ul>
+                <li>Country of Residency : @t.CountryOfResidency</li>
+                <li>Tax Identification Number : @t.TaxIdentificationNumber</li>
+            </ul>
+        }
+
+        <legend>AML</legend>
+        <ul>
+            <li>Date : @clientDetails.AML.AMLDate</li>
+            <li>Status : @clientDetails.AML.AMLStatus</li>
+            <li>Score : @clientDetails.AML.AMLScore</li>
+        </ul>
+
+
+        <legend>Plans</legend>
+        foreach (var t in clientDetails.Plans)
+        {
+            <ul>
+                <li>Provider : @t.Provider</li>
+                <li>Plan Type : @t.PlanType</li>
+                <li>Plan Type Id : @t.PlanTypeId</li>
+                <li>Plan Name : @t.PlanName</li>
+                <li>External Plan Id : @t.ExternalPlanId</li>
+            </ul>
+        }
+
+        <legend>Errors</legend>
+        <ul>
+            <li>Error Message : @clientDetails.ErrorMessage</li>
+        </ul>
+    }
+}

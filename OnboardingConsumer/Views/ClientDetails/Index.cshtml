@@ -1,0 +1,18 @@
+﻿@model OnboardingConsumer.Models.ClientDetailsId
+
+<h2>Get Client Details</h2>
+
+@using (Html.BeginForm("GetClientDetails", "ClientDetails", FormMethod.Post))
+{
+    <div class="editor-label">
+        @Html.LabelFor(model => model.ReykerClientId)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.ReykerClientId)
+    </div>
+
+    <br>
+    <div class="editor-field">
+        <input type="submit" class="btn btn-success">
+    </div>
+}

@@ -120,11 +120,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdditionalPlanController.cs" />
+    <Compile Include="Controllers\BulkClientDetailsController.cs" />
+    <Compile Include="Controllers\ClientDetailsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ClientDetails.cs" />
+    <Compile Include="Models\ClientDetailsId.cs" />
     <Compile Include="Models\OnboardingClientDetails.cs" />
     <Compile Include="Models\OnboardingPlanDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -248,6 +252,12 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\OnboardingResult.cshtml" />
+    <Content Include="Views\AdditionalPlan\Index.cshtml" />
+    <Content Include="Views\AdditionalPlan\AdditionalPlanResult.cshtml" />
+    <Content Include="Views\ClientDetails\Index.cshtml" />
+    <Content Include="Views\ClientDetails\ClientDetailsResult.cshtml" />
+    <Content Include="Views\BulkClientDetails\Index.cshtml" />
+    <Content Include="Views\BulkClientDetails\BulkClientDetailsResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
