@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using OnboardingConsumer.Models;
 using OnboardingConsumer.Utilities;
@@ -23,7 +21,7 @@ namespace OnboardingConsumer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> GetClientDetails(ClientDetailsId subitionData)
+        public async Task<ActionResult> GetClientDetails(ClientDetailsId clientDetailsId)
         {
             var model = new ClientDetails();
 
@@ -32,7 +30,7 @@ namespace OnboardingConsumer.Controllers
                 var url = ConfigurationManager.AppSettings["APIUrl"];
 
                 var request =
-                    WebRequest.CreateHttp(url + "api/ClientDetails/" + subitionData.ReykerClientId);
+                    WebRequest.CreateHttp(url + "api/ClientDetails/" + clientDetailsId.ReykerClientId);
                 request.ContentType = "text/json";
                 request.Method = "GET";
 
