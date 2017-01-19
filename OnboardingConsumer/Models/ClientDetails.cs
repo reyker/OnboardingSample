@@ -54,6 +54,7 @@ namespace OnboardingConsumer.Models
         public int? PlanTypeId { get; set; }
         public string PlanName { get; set; }
         public string ExternalPlanId { get; set; }
+        public long AccessNumber { get; set; }
     }
 
     public class TelephoneNumber

@@ -11,8 +11,8 @@ namespace OnboardingConsumer.Utilities
     public class Encryption
     {
         //REPLACE WITH YOUR INFORMATION
-        private readonly string aesKey = "Na1Y78EF5VndCMt5tncNj7X9YeOU3ofJUWQy";
-        private readonly byte[] salt = Encoding.UTF8.GetBytes("8u06V8lF5rFS");
+        private readonly string aesKey = "PLACE YOUR AES KEY HERE";
+        private readonly byte[] salt = Encoding.UTF8.GetBytes("PLACE YOUR SALT HERE");
 
         internal async Task<string> AES_Encrypt(object objectToBeEncrypted)
         {
