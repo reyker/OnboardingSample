@@ -53,7 +53,7 @@
         @Html.LabelFor(model => model.BirthDate)
     </div>
     <div class="editor-field">
-        @Html.TextBoxFor(model => model.BirthDate, new {@class = "datepicker", @Value = DateTime.Today.Date})
+        @Html.TextBoxFor(model => model.BirthDate, new {@type = "date" })
     </div>
 
     <br>

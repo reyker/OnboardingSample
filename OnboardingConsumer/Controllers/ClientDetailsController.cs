@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using OnboardingConsumer.Models;
 using OnboardingConsumer.Utilities;
+using System.Net.Http;
+using System.Collections.Generic;
+using System.Net;
+using System.Configuration;
+using System.IO;
+using System.Text;
 
 namespace OnboardingConsumer.Controllers
 {
